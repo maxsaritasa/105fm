@@ -1,9 +1,9 @@
-# Fluently
+# 105fm
 
 Fix, improve or translate any selected text on your Mac with one keystroke. Select text in any app (Mail, Slack, Chrome, Notes, Mimestream...), press **both Shift keys together**, and the corrected text replaces your selection.
 
 - Runs on **Apple's on-device model** (`fm`, built into macOS 27): free, private, nothing leaves your Mac.
-- Falls back to **Claude Haiku** (Anthropic API) only if the local model fails. The API key is optional.
+- Falls back to **Anthropic Haiku** (Anthropic API) only if the local model fails. The API key is optional.
 - Works the same with English and Russian keyboard layouts active.
 - Also fixes text typed in the wrong keyboard layout (`ghbdtn` -> `привет`), instantly and offline.
 
@@ -32,7 +32,7 @@ A pencil icon (✎) in the menu bar shows what is happening:
 | `…` | Waiting for the second key |
 | spinner | Working |
 | `✓ 1.2s fm` | Done by the local model |
-| `✓ 1.2s H` | Done by Claude Haiku (fallback) |
+| `✓ 1.2s H` | Done by Anthropic Haiku (fallback) |
 | `✓ EN>RU` / `✓ RU>EN` | Wrong-layout fix done |
 | `∅` | Nothing was selected |
 | `✗` | Failed - see the Hammerspoon console |
@@ -57,8 +57,8 @@ You should get a reply within a few seconds. If you get `command not found`, you
 ### Quick install
 
 ```sh
-git clone https://github.com/maxsaritasa/fluently.git
-cd fluently
+git clone https://github.com/maxsaritasa/105fm.git
+cd 105fm
 ./install.sh
 ```
 
@@ -78,8 +78,8 @@ Or download them from their websites. Open each one once.
 
 ```sh
 mkdir -p ~/.hammerspoon
-cp hammerspoon/claude_text_fixer.lua ~/.hammerspoon/
-echo 'require("claude_text_fixer")' >> ~/.hammerspoon/init.lua
+cp hammerspoon/105fm.lua ~/.hammerspoon/
+echo 'require("105fm")' >> ~/.hammerspoon/init.lua
 ```
 
 If you already use Hammerspoon, this adds one line to your existing config and leaves the rest alone.
@@ -88,12 +88,12 @@ If you already use Hammerspoon, this adds one line to your existing config and l
 
 ```sh
 mkdir -p ~/.config/karabiner/assets/complex_modifications
-cp karabiner/claude-text-fixer.json ~/.config/karabiner/assets/complex_modifications/
+cp karabiner/105fm.json ~/.config/karabiner/assets/complex_modifications/
 ```
 
 **4. Enable the Karabiner rule**
 
-Karabiner-Elements → **Complex Modifications** → **Add predefined rule** → find **Claude Text Fixer** → **Enable**.
+Karabiner-Elements → **Complex Modifications** → **Add predefined rule** → find **105fm** → **Enable**.
 
 Karabiner also needs its own macOS permissions (Input Monitoring and the driver extension). It walks you through these the first time you open it.
 
@@ -119,11 +119,11 @@ Open any text field, type `teh meeting is tommorow — dont be late`, select it,
 
 ## Configuration
 
-Settings live at the top of `~/.hammerspoon/claude_text_fixer.lua`. Reload Hammerspoon after any change.
+Settings live at the top of `~/.hammerspoon/105fm.lua`. Reload Hammerspoon after any change.
 
 | Setting | Default | What it does |
 | --- | --- | --- |
-| `USE_FM` | `true` | `false` sends everything to Claude Haiku |
+| `USE_FM` | `true` | `false` sends everything to Anthropic Haiku |
 | `FM_ACTIONS` | all five | Actions that use the local model. Remove one (e.g. `spanish`) to send it to Haiku |
 | `FM_CYRILLIC` | `true` | `false` sends any text containing Cyrillic to Haiku |
 | `FM_TIMEOUT` | `20` | Seconds before giving up on the local model |
@@ -153,7 +153,7 @@ The wrong-layout fix (⇧⇧ w) is a plain character map, not a model call: it c
 
 ## Troubleshooting
 
-Open the Hammerspoon console from the ✎ menu → **Open console**. Errors start with `fix-with-claude`.
+Open the Hammerspoon console from the ✎ menu → **Open console**. Errors start with `105fm`.
 
 | Symptom | Fix |
 | --- | --- |
@@ -165,7 +165,7 @@ Open the Hammerspoon console from the ✎ menu → **Open console**. Errors star
 | Every call takes 20 s then falls back | The local model is hanging, usually on first use. Run `fm respond "hello"` once in Terminal, or raise `FM_TIMEOUT` |
 | Output has an intro line or quotes around it | The local model followed the prompt loosely. Tighten the prompt, or remove that action from `FM_ACTIONS` |
 | `✗` with `HTTP 401` | Wrong or missing API key. `security find-generic-password -a "$USER" -s anthropic_api_key -w` should print it |
-| `✗` with `HTTP 404` | The Haiku model name changed. Update `MODEL` from docs.claude.com |
+| `✗` with `HTTP 404` | The Haiku model name changed. Update `MODEL` from docs.anthropic.com |
 | Pasted text is your old clipboard | The app reads the paste slowly. Raise `RESTORE_DELAY` |
 | Works in English layout but not in Russian | You added a binding by letter (`"i"`) instead of key code (`KEY.i`) |
 | ⇧⇧ w gets a symbol wrong | Run `hs.keycodes.layouts()` in the console to see your Russian layout's name, then fix that one pair in the matching `zipInto` line |
@@ -174,12 +174,12 @@ Open the Hammerspoon console from the ✎ menu → **Open console**. Errors star
 ## Uninstall
 
 ```sh
-rm ~/.hammerspoon/claude_text_fixer.lua
-rm ~/.config/karabiner/assets/complex_modifications/claude-text-fixer.json
+rm ~/.hammerspoon/105fm.lua
+rm ~/.config/karabiner/assets/complex_modifications/105fm.json
 security delete-generic-password -a "$USER" -s anthropic_api_key   # if you added a key
 ```
 
-Then remove the `require("claude_text_fixer")` line from `~/.hammerspoon/init.lua`, disable the rule in Karabiner, and reload Hammerspoon. Remove the apps themselves if nothing else uses them.
+Then remove the `require("105fm")` line from `~/.hammerspoon/init.lua`, disable the rule in Karabiner, and reload Hammerspoon. Remove the apps themselves if nothing else uses them.
 
 ## Privacy
 

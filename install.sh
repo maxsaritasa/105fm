@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Claude Text Fixer installer. Safe to re-run: it backs up anything it changes.
+# 105fm installer. Safe to re-run: it backs up anything it changes.
 set -euo pipefail
 
 REPO_DIR="$(cd "$(dirname "$0")" && pwd)"
@@ -16,7 +16,7 @@ say "1/5  Checking prerequisites"
 if [[ -x /usr/bin/fm ]]; then
   ok "Apple Foundation Models CLI found (/usr/bin/fm)"
 else
-  warn "/usr/bin/fm not found (needs macOS 27 with Apple Intelligence). The tool will use Claude Haiku for everything, so you will need an API key (step 4)."
+  warn "/usr/bin/fm not found (needs macOS 27 with Apple Intelligence). The tool will use Anthropic Haiku for everything, so you will need an API key (step 4)."
 fi
 
 missing=()
@@ -35,27 +35,27 @@ ok "Hammerspoon and Karabiner-Elements present"
 
 say "2/5  Installing the Hammerspoon module"
 mkdir -p "$HS_DIR"
-if [[ -f "$HS_DIR/claude_text_fixer.lua" ]]; then
-  cp "$HS_DIR/claude_text_fixer.lua" "$HS_DIR/claude_text_fixer.lua.bak-$STAMP"
+if [[ -f "$HS_DIR/105fm.lua" ]]; then
+  cp "$HS_DIR/105fm.lua" "$HS_DIR/105fm.lua.bak-$STAMP"
   ok "Backed up previous module"
 fi
-cp "$REPO_DIR/hammerspoon/claude_text_fixer.lua" "$HS_DIR/claude_text_fixer.lua"
-ok "Copied claude_text_fixer.lua to $HS_DIR"
+cp "$REPO_DIR/hammerspoon/105fm.lua" "$HS_DIR/105fm.lua"
+ok "Copied 105fm.lua to $HS_DIR"
 
 touch "$HS_DIR/init.lua"
-if grep -q 'require("claude_text_fixer")' "$HS_DIR/init.lua"; then
+if grep -q 'require("105fm")' "$HS_DIR/init.lua"; then
   ok "init.lua already loads the module"
 else
   cp "$HS_DIR/init.lua" "$HS_DIR/init.lua.bak-$STAMP"
-  printf '\n-- Claude Text Fixer\nrequire("claude_text_fixer")\n' >> "$HS_DIR/init.lua"
-  ok "Added require(\"claude_text_fixer\") to init.lua (backup: init.lua.bak-$STAMP)"
+  printf '\n-- 105fm\nrequire("105fm")\n' >> "$HS_DIR/init.lua"
+  ok "Added require(\"105fm\") to init.lua (backup: init.lua.bak-$STAMP)"
 fi
 
 say "3/5  Installing the Karabiner rule"
 mkdir -p "$KB_DIR"
-cp "$REPO_DIR/karabiner/claude-text-fixer.json" "$KB_DIR/claude-text-fixer.json"
+cp "$REPO_DIR/karabiner/105fm.json" "$KB_DIR/105fm.json"
 ok "Copied rule to $KB_DIR"
-warn "Enable it yourself: Karabiner-Elements → Complex Modifications → Add predefined rule → Claude Text Fixer → Enable"
+warn "Enable it yourself: Karabiner-Elements → Complex Modifications → Add predefined rule → 105fm → Enable"
 
 say "4/5  Anthropic API key (optional)"
 if security find-generic-password -a "$USER" -s anthropic_api_key -w >/dev/null 2>&1; then
@@ -76,7 +76,7 @@ open -a Hammerspoon
 cat <<'EOF'
   Finish these by hand (one time):
     • System Settings → Privacy & Security → Accessibility → turn on Hammerspoon
-    • Karabiner: enable the "Claude Text Fixer" rule (step 3)
+    • Karabiner: enable the "105fm" rule (step 3)
     • Hammerspoon menu bar icon → Reload Config
   Then select some text anywhere and press both Shift keys together.
 EOF

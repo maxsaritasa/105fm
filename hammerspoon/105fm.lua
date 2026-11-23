@@ -1,6 +1,6 @@
--- ===== Fluently (Claude Text Fixer) =====
--- https://github.com/maxsaritasa/fluently - see README.md for setup.
--- Loaded from ~/.hammerspoon/init.lua with: require("claude_text_fixer")
+-- ===== 105fm =====
+-- https://github.com/maxsaritasa/105fm - see README.md for setup.
+-- Loaded from ~/.hammerspoon/init.lua with: require("105fm")
 --
 -- Both ⇧ keys (Karabiner -> F18)            fix spelling/grammar (also ⇧⇧ then f)
 -- Both ⇧ keys (Karabiner -> F18), then i    improve clarity
@@ -10,7 +10,7 @@
 -- ⌃⌥F / ⌃⌥I still work as direct shortcuts
 --
 -- Backends: every action runs on the local Apple Foundation Model (`fm respond`, macOS 27).
--- Claude Haiku is only the fallback when fm fails or times out.
+-- Anthropic Haiku is only the fallback when fm fails or times out.
 -- To send Russian back to Haiku: FM_CYRILLIC = false and remove russian from FM_ACTIONS.
 
 local MODEL = "claude-haiku-5-5"
@@ -127,7 +127,7 @@ local function showResult(ok, secs)
 end
 
 -- ---------- Haiku (Anthropic API) ----------
-local function callClaude(prompt, text, cb)
+local function callHaiku(prompt, text, cb)
   if API_KEY == "" then
     cb(nil, "no Anthropic API key in Keychain (service anthropic_api_key); Haiku fallback unavailable")
     return
@@ -171,7 +171,7 @@ end
 -- fm takes a single prompt, so the instructions and the text go in one argument.
 -- hs.task passes arguments straight to the binary: no shell, no quoting problems.
 if USE_FM and not hs.fs.attributes(FM_PATH) then
-  print("fix-with-claude: " .. FM_PATH .. " not found; using Haiku for everything")
+  print("105fm: " .. FM_PATH .. " not found; using Haiku for everything")
   USE_FM = false
 end
 
@@ -279,7 +279,7 @@ local function fixSelection(action)
         .. (used == "fm" and " fm" or " H")
       if not out or out == "" then
         showResult(false, secs)
-        print("fix-with-claude error (" .. used .. "): " .. tostring(err))
+        print("105fm error (" .. used .. "): " .. tostring(err))
         restoreClipboard(saved)
         return
       end
@@ -288,13 +288,13 @@ local function fixSelection(action)
     end
 
     local function viaHaiku()
-      callClaude(prompt, text, function(out, err) finish(out, err, "haiku") end)
+      callHaiku(prompt, text, function(out, err) finish(out, err, "haiku") end)
     end
 
     if chooseBackend(action, text) == "fm" then
       callFM(prompt, text, function(out, err)
         if not out and FM_FALLBACK_TO_HAIKU then
-          print("fix-with-claude: fm failed, retrying on Haiku: " .. tostring(err))
+          print("105fm: fm failed, retrying on Haiku: " .. tostring(err))
           viaHaiku()
         else
           finish(out, err, "fm")
@@ -422,9 +422,9 @@ leader:bind({}, KEY.f18,    function() leader:exit() end)   -- chord again cance
 
 if API_KEY == "" then
   if USE_FM then
-    print("fix-with-claude: no API key in Keychain; running local-only (no Haiku fallback)")
+    print("105fm: no API key in Keychain; running local-only (no Haiku fallback)")
   else
-    hs.alert.show("Claude Text Fixer: fm unavailable and no API key in Keychain", 4)
+    hs.alert.show("105fm: fm unavailable and no API key in Keychain", 4)
     bar:setTitle("✎ !")
   end
 end

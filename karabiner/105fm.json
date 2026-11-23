@@ -1,8 +1,8 @@
 {
-  "title": "Claude Text Fixer",
+  "title": "105fm",
   "rules": [
     {
-      "description": "Both Shift keys -> F18 (Claude Text Fixer leader)",
+      "description": "Both Shift keys -> F18 (105fm leader)",
       "manipulators": [
         {
           "type": "basic",
