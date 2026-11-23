@@ -1,0 +1,26 @@
+{
+  "title": "Claude Text Fixer",
+  "rules": [
+    {
+      "description": "Both Shift keys -> F18 (Claude Text Fixer leader)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "simultaneous": [
+              { "key_code": "left_shift" },
+              { "key_code": "right_shift" }
+            ],
+            "simultaneous_options": {
+              "key_down_order": "insensitive",
+              "key_up_order": "insensitive",
+              "detect_key_down_uninterruptedly": true
+            }
+          },
+          "to": [ { "key_code": "f18" } ],
+          "parameters": { "basic.simultaneous_threshold_milliseconds": 150 }
+        }
+      ]
+    }
+  ]
+}
