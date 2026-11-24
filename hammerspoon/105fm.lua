@@ -2,8 +2,8 @@
 -- https://github.com/maxsaritasa/105fm - see README.md for setup.
 -- Loaded from ~/.hammerspoon/init.lua with: require("105fm")
 --
--- Both ⇧ keys (Karabiner -> F18)            fix spelling/grammar (also ⇧⇧ then f)
--- Both ⇧ keys (Karabiner -> F18), then i    improve clarity
+-- Both ⇧ keys (Karabiner -> F18)            improve clarity (also ⇧⇧ then i)
+-- Both ⇧ keys (Karabiner -> F18), then f    fix spelling/grammar only
 -- Both ⇧ keys, then e / r / s              improve + translate to English / Russian / Spanish
 -- Both ⇧ keys, then w                      fix text typed in the wrong keyboard layout (RU<->EN, local, no API)
 -- Esc or ⇧⇧ again within 1s cancels
@@ -89,8 +89,8 @@ local function setMenu()
   bar:setMenu({
     { title = "Last run: " .. lastStatus, disabled = true },
     { title = "-" },
-    { title = "⇧⇧            Fix spelling/grammar  (or ⌃⌥F)", disabled = true },
-    { title = "⇧⇧ then i   Improve text  (or ⌃⌥I)", disabled = true },
+    { title = "⇧⇧            Improve text  (or ⌃⌥I)", disabled = true },
+    { title = "⇧⇧ then f   Fix spelling/grammar  (or ⌃⌥F)", disabled = true },
     { title = "⇧⇧ then e   Improve + translate to English", disabled = true },
     { title = "⇧⇧ then r   Improve + translate to Russian", disabled = true },
     { title = "⇧⇧ then s   Improve + translate to Argentine Spanish", disabled = true },
