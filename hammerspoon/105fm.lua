@@ -35,7 +35,7 @@ You are a copy editor. Correct the text below.
 Rules:
 1. Fix spelling, grammar and punctuation only. Do not rephrase or shorten.
 2. Fix pronoun case errors (e.g. "Me and X did" -> "X and I did").
-3. Replace every em dash (—) and en dash (–) with a plain hyphen (-).
+3. Never use em dashes (—) or en dashes (–) anywhere in your output, including in text you write yourself. Always use a plain hyphen (-) instead, and replace any long dashes in the original.
 4. Keep the tone, formatting and line breaks exactly as they are.
 5. Return only the corrected text. No preamble, no explanation, no quotes around it.]],
 
@@ -45,7 +45,7 @@ Rules:
 1. Fix spelling, grammar and punctuation.
 2. Lightly improve clarity and flow. Keep the meaning, tone and roughly the same length.
 3. Use plain, direct business language. No corporate phrasing.
-4. Replace every em dash (—) and en dash (–) with a plain hyphen (-).
+4. Never use em dashes (—) or en dashes (–) anywhere in your output, including in text you write yourself. Always use a plain hyphen (-) instead, and replace any long dashes in the original.
 5. Keep formatting and line breaks as they are.
 6. Return only the improved text. No preamble, no explanation, no quotes around it.]],
 }
@@ -57,7 +57,7 @@ Rules:
 2. Translate accurately and naturally, as a native speaker would write it. Do not translate word for word.
 3. Lightly improve clarity and flow. Keep the meaning, tone and roughly the same length.
 4. Use plain, direct business language. No corporate phrasing.
-5. Replace every em dash (—) and en dash (–) with a plain hyphen (-).
+5. Never use em dashes (—) or en dashes (–) anywhere in your output, including in text you write yourself. Always use a plain hyphen (-) instead, and replace any long dashes in the original.
 6. Keep formatting and line breaks as they are. Keep names, product names and technical terms as they are.
 7. Return only the translated text. No preamble, no explanation, no quotes around it.]]
 
@@ -72,7 +72,7 @@ Rules:
 4. Prefer Argentine vocabulary where it differs: "celular" not "móvil", "computadora" not "ordenador", "acá/allá" over "aquí/allí", "mail" or "correo" for email, "charlar", "laburo" only if the source is informal, "dale" / "bárbaro" / "genial" where the source is casual.
 5. Match the register of the source. A formal email stays formal (usted is acceptable only if the source is clearly formal and distant); a casual message stays casual with natural Argentine warmth.
 6. Lightly improve clarity and flow. Keep the meaning, tone and roughly the same length.
-7. Replace every em dash (—) and en dash (–) with a plain hyphen (-).
+7. Never use em dashes (—) or en dashes (–) anywhere in your output, including in text you write yourself. Always use a plain hyphen (-) instead, and replace any long dashes in the original.
 8. Keep formatting and line breaks as they are. Keep names, product names and technical terms (staging, deploy, pull request, etc.) in English as Argentine developers do.
 9. Return only the translated text. No preamble, no explanation, no quotes around it.]]
 
