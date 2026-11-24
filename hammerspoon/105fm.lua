@@ -392,7 +392,7 @@ hs.hotkey.bind({"ctrl", "alt"}, KEY.f, function() fixSelection("fix") end)
 hs.hotkey.bind({"ctrl", "alt"}, KEY.i, function() fixSelection("improve") end)
 
 -- ---------- leader sequence: F18 (both ⇧ via Karabiner), then f / i / e / r / s / w ----------
-local LEADER_TIMEOUT = 1   -- seconds to press I (or Esc); otherwise defaults to fix
+local LEADER_TIMEOUT = 1   -- seconds to press a second key (or Esc); otherwise defaults to improve
 
 local leader = hs.hotkey.modal.new({}, KEY.f18)
 local leaderTimer = nil
@@ -402,7 +402,7 @@ function leader:entered()
   bar:setTitle("…")
   leaderTimer = hs.timer.doAfter(LEADER_TIMEOUT, function()
     leader:exit()
-    fixSelection("fix")   -- no second key -> default to fix
+    fixSelection("improve")   -- no second key -> default to improve
   end)
 end
 

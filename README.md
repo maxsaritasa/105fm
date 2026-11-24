@@ -13,9 +13,9 @@ Select text, press both Shift keys, then (optionally) a letter within 1 second:
 
 | Keys | Action |
 | --- | --- |
-| ⇧⇧ (wait 1 s) | Fix spelling, grammar and punctuation only |
-| ⇧⇧ then **f** | Same, without waiting |
-| ⇧⇧ then **i** | Improve clarity and flow, keep length and tone |
+| ⇧⇧ (wait 1 s) | Improve clarity and flow, keep length and tone |
+| ⇧⇧ then **i** | Same, without waiting |
+| ⇧⇧ then **f** | Fix spelling, grammar and punctuation only |
 | ⇧⇧ then **e** | Translate to English (any source language), lightly improved |
 | ⇧⇧ then **r** | Translate to Russian |
 | ⇧⇧ then **s** | Translate to Argentine (Rioplatense) Spanish |
@@ -115,7 +115,7 @@ Paste the key when prompted. It is stored in the macOS Keychain, never in a file
 
 ### Try it
 
-Open any text field, type `teh meeting is tommorow — dont be late`, select it, press both Shift keys and wait a second. It should become `The meeting is tomorrow - don't be late.`
+Open any text field, type `teh meeting is tommorow — dont be late`, select it, press both Shift keys, then **f**. It should become `The meeting is tomorrow - don't be late.`
 
 ## Configuration
 
@@ -129,7 +129,7 @@ Settings live at the top of `~/.hammerspoon/105fm.lua`. Reload Hammerspoon after
 | `FM_TIMEOUT` | `20` | Seconds before giving up on the local model |
 | `FM_FALLBACK_TO_HAIKU` | `true` | Retry on Haiku when the local model fails |
 | `MODEL` | `claude-haiku-5-5` | Anthropic model used for the fallback |
-| `LEADER_TIMEOUT` | `1` | Seconds to press the second key before it defaults to fix |
+| `LEADER_TIMEOUT` | `1` | Seconds to press the second key before it defaults to improve |
 | `RESTORE_CLIPBOARD` | `true` | Put your old clipboard back after pasting |
 | `RESTORE_DELAY` | `0.5` | Seconds to wait before restoring; raise it if an app pastes your old clipboard |
 | `SWITCH_LAYOUT_AFTER_FIX` | `true` | After ⇧⇧ w, switch the input source to the layout the text was meant for |
