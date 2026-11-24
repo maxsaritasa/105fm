@@ -265,6 +265,18 @@ local function pasteText(text, saved)
   restoreClipboard(saved, RESTORE_DELAY)
 end
 
+-- Models sometimes turn single line breaks into blank lines. Never return more blank
+-- lines than the input had: none if the input had none, otherwise at most one in a row.
+local function matchLineBreaks(input, out)
+  out = out:gsub("\r\n", "\n"):gsub("[ \t]+\n", "\n")
+  if input:gsub("\r\n", "\n"):find("\n[ \t]*\n") then
+    out = out:gsub("\n\n\n+", "\n\n")
+  else
+    out = out:gsub("\n\n+", "\n")
+  end
+  return out
+end
+
 -- ---------- the fix action ----------
 -- action is a PROMPTS key: fix / improve / english / russian / spanish
 local function fixSelection(action)
@@ -283,7 +295,7 @@ local function fixSelection(action)
         restoreClipboard(saved)
         return
       end
-      pasteText((out:gsub("%s+$", "")), saved)
+      pasteText((matchLineBreaks(text, out):gsub("%s+$", "")), saved)
       showResult(true, secs)
     end
 
