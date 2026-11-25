@@ -4,7 +4,7 @@
 --
 -- Both ⇧ keys (Karabiner -> F18)            improve clarity (also ⇧⇧ then i)
 -- Both ⇧ keys (Karabiner -> F18), then f    fix spelling/grammar only
--- Both ⇧ keys, then e / r / s              improve + translate to English / Russian / Spanish
+-- Both ⇧ keys, then e / r / s / v          improve + translate to English / Russian / Spanish / Vietnamese
 -- Both ⇧ keys, then w                      fix text typed in the wrong keyboard layout (RU<->EN, local, no API)
 -- Esc or ⇧⇧ again within 1s cancels
 -- ⌃⌥F / ⌃⌥I still work as direct shortcuts
@@ -22,7 +22,7 @@ local USE_FM = true                 -- false = everything goes to Haiku, as befo
 local FM_PATH = "/usr/bin/fm"
 local FM_TIMEOUT = 20               -- seconds before giving up on fm
 local FM_FALLBACK_TO_HAIKU = true   -- if fm fails or times out, retry the same request on Haiku
-local FM_ACTIONS = { fix = true, improve = true, english = true, spanish = true, russian = true }
+local FM_ACTIONS = { fix = true, improve = true, english = true, spanish = true, russian = true, vietnamese = true }
 local FM_CYRILLIC = true            -- false = any text containing Cyrillic goes to Haiku
 
 -- Physical key codes (ANSI positions). Binding by code instead of letter makes every
@@ -63,6 +63,7 @@ Rules:
 
 PROMPTS.english = string.format(TRANSLATE_TEMPLATE, "English", "English")
 PROMPTS.russian = string.format(TRANSLATE_TEMPLATE, "Russian", "Russian")
+PROMPTS.vietnamese = string.format(TRANSLATE_TEMPLATE, "Vietnamese", "Vietnamese")
 PROMPTS.spanish = [[
 You are a professional translator and copy editor based in Buenos Aires. Translate the text below into Argentine (Rioplatense) Spanish.
 Rules:
@@ -94,6 +95,7 @@ local function setMenu()
     { title = "⇧⇧ then e   Improve + translate to English", disabled = true },
     { title = "⇧⇧ then r   Improve + translate to Russian", disabled = true },
     { title = "⇧⇧ then s   Improve + translate to Argentine Spanish", disabled = true },
+    { title = "⇧⇧ then v   Improve + translate to Vietnamese", disabled = true },
     { title = "⇧⇧ then w   Fix wrong keyboard layout (RU <-> EN)", disabled = true },
     { title = "-" },
     { title = USE_FM and "Local model (fm): on, Haiku fallback" or "Local model (fm): off", disabled = true },
@@ -278,7 +280,7 @@ local function matchLineBreaks(input, out)
 end
 
 -- ---------- the fix action ----------
--- action is a PROMPTS key: fix / improve / english / russian / spanish
+-- action is a PROMPTS key: fix / improve / english / russian / spanish / vietnamese
 local function fixSelection(action)
   local prompt = PROMPTS[action]
   local saved = saveClipboard()
@@ -403,7 +405,7 @@ end
 hs.hotkey.bind({"ctrl", "alt"}, KEY.f, function() fixSelection("fix") end)
 hs.hotkey.bind({"ctrl", "alt"}, KEY.i, function() fixSelection("improve") end)
 
--- ---------- leader sequence: F18 (both ⇧ via Karabiner), then f / i / e / r / s / w ----------
+-- ---------- leader sequence: F18 (both ⇧ via Karabiner), then f / i / e / r / s / v / w ----------
 local LEADER_TIMEOUT = 1   -- seconds to press a second key (or Esc); otherwise defaults to improve
 
 local leader = hs.hotkey.modal.new({}, KEY.f18)
@@ -428,6 +430,7 @@ leader:bind({}, KEY.i,      function() leader:exit(); fixSelection("improve") en
 leader:bind({}, KEY.e,      function() leader:exit(); fixSelection("english") end)
 leader:bind({}, KEY.r,      function() leader:exit(); fixSelection("russian") end)
 leader:bind({}, KEY.s,      function() leader:exit(); fixSelection("spanish") end)
+leader:bind({}, KEY.v,      function() leader:exit(); fixSelection("vietnamese") end)
 leader:bind({}, KEY.w,      function() leader:exit(); fixLayout() end)
 leader:bind({}, KEY.escape, function() leader:exit() end)
 leader:bind({}, KEY.f18,    function() leader:exit() end)   -- chord again cancels

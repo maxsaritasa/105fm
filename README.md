@@ -19,6 +19,7 @@ Select text, press both Shift keys, then (optionally) a letter within 1 second:
 | ⇧⇧ then **e** | Translate to English (any source language), lightly improved |
 | ⇧⇧ then **r** | Translate to Russian |
 | ⇧⇧ then **s** | Translate to Argentine (Rioplatense) Spanish |
+| ⇧⇧ then **v** | Translate to Vietnamese |
 | ⇧⇧ then **w** | Fix text typed in the wrong keyboard layout (RU <-> EN) |
 | ⇧⇧ then **Esc**, or ⇧⇧ again | Cancel |
 | ⌃⌥F / ⌃⌥I | Fix / Improve directly, without the Shift chord |
@@ -124,7 +125,7 @@ Settings live at the top of `~/.hammerspoon/105fm.lua`. Reload Hammerspoon after
 | Setting | Default | What it does |
 | --- | --- | --- |
 | `USE_FM` | `true` | `false` sends everything to Anthropic Haiku |
-| `FM_ACTIONS` | all five | Actions that use the local model. Remove one (e.g. `spanish`) to send it to Haiku |
+| `FM_ACTIONS` | all six | Actions that use the local model. Remove one (e.g. `spanish`) to send it to Haiku |
 | `FM_CYRILLIC` | `true` | `false` sends any text containing Cyrillic to Haiku |
 | `FM_TIMEOUT` | `20` | Seconds before giving up on the local model |
 | `FM_FALLBACK_TO_HAIKU` | `true` | Retry on Haiku when the local model fails |
